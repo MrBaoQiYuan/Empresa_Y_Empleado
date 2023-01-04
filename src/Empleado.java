@@ -4,12 +4,20 @@ public class Empleado {
     private double salario;
     private int matricula;
 
+    public Empleado(String nombre, String puesto, double salario) {
+        this.nombre = nombre;
+        this.puesto = puesto;
+        this.salario = salario;
+        this.matricula=matricula;
+    }
+
     public Empleado(String nombre, String puesto, double salario, int matricula) {
         this.nombre = nombre;
         this.puesto = puesto;
         this.salario = salario;
         this.matricula = matricula;
     }
+
 
     public String getNombre() {
         return nombre;
