@@ -5,10 +5,9 @@ public class Main {
     public static void main(String[] args) {
 
         Empresa empresa1 = new Empresa("Inditex");
-
-        boolean repetir = false;
         Scanner input = new Scanner(System.in);
 
+        boolean repetir = false;
         while (!repetir) {
 
             System.out.println("Seleccione una opcion del menu de Empleados: ");
@@ -19,21 +18,21 @@ public class Main {
             System.out.println("Opcion 5: Calcula el promedio de los salarios");
             System.out.println("Opcion 6: Salario maximo y salario minimo");
             System.out.println("Opcion 7: Salir");
+            System.out.println("Opcion 8: Añadir empleados al turno"); //añadir / quitar empleados del turno.
 
             System.out.println("Elija una opcion");
             int opcion;
             opcion = input.nextInt();
 
             switch (opcion) {
-                case 1:
+                case 1: //AGREGAR UN EMPLEADO
                     System.out.println("Vamos a agregar un Empleado. Elija una opcion: " +
                             "\nOpcion 10.- Agregar un empleado. " +
                             "\nOpcion 11.- Agregar varios empleados a la vez");
 
                     int opcion2 = input.nextInt();
                     switch (opcion2) {
-                        case 10:
-
+                        case 10: //Agregar un empleado
                             System.out.println("introduzca el nombre del empleado nuevo");
                             String nombre = input.next();
 
@@ -65,7 +64,7 @@ public class Main {
                             empresa1.agregarEmpleado(new Empleado(nombreCorrecto, puestoCorrecto, salario, matricula));
                             break;
 
-                        case 11:
+                        case 11: //Agregar varios empleados
                             System.out.println("¿Cuantos empleados quieres agregar?");
                             int nEmpleadosMasivos = input.nextInt();
                             System.out.println("¿Que puesto necesitas que cubran los " + nEmpleadosMasivos + " empleados nuevos?");
@@ -84,14 +83,14 @@ public class Main {
                     }
                     break;
 
-                case 2:
+                case 2: //Eliminar Empleados
                     System.out.println("Elija una de las siguientes opciones:" +
                             "\nOpcion 12: Eliminar según nombre y puesto del empleado." +
                             "\nOpcion 13: Eliminar todos los empleados de un mismo puesto." +
                             "\nOpcion 14: Eliminar todos los empleados de la empresa.");
                     int opcionEliminar = input.nextInt();
                     switch (opcionEliminar) {
-                        case 12:
+                        case 12: //Eliminar segun nombre y puesto del empleado.
                             try {
                                 if (empresa1.listaEmpleados.size() > 0) {
                                     System.out.println("Introduzca el nombre del empleado a eliminar");
@@ -108,12 +107,11 @@ public class Main {
 
                             break;
 
-
-                        case 13:
+                        case 13: //Eliminar todos los empleados de un puesto
                             empresa1.eliminarEmpleadosDeUnPuesto();
                             break;
 
-                        case 14:
+                        case 14://Eliminar todos los empleados de la empresa
                             try {
                                 empresa1.eliminarTodosEmpleados();
                                 System.out.println("Se han eliminado todos los empleados de la empresa");
@@ -124,7 +122,7 @@ public class Main {
                     }
                     break;
 
-                case 3:
+                case 3: //Modificar datos de empleado
                     System.out.println("usted ha seleccionado modificar." +
                             "\nIngrese el numero de matricula del empleado que desea modificar.");
                     int matricula2 = input.nextInt();
@@ -133,18 +131,27 @@ public class Main {
                     break;
 
 
-                case 4:
-                    System.out.println("usted ha pulsado consultar. Estos son los empleados actuales.");
-                    empresa1.consultarEmpleado();
-                    break;
+                case 4://consultar datos de empleado.
+                    System.out.println("Seleccione consultar los empleados activos o despedidos." +
+                            "Opcion 15.- Empleados actuales activos." +
+                            "Opcion 16.- Empleados despedidos");
+                    int opcion3 = input.nextInt();
+                    switch (opcion3) {
+                        case 15:
+                            empresa1.consultarEmpleado();
+                            break;
+                        case 16:
+                            empresa1.consultarEmpleadosDespedidos();
+                            break;
+                    }
 
 
-                case 5:
+                case 5: //Calcular el promedio de los salarios
                     empresa1.calcularPromedioSalarios();
                     break;
 
 
-                case 6:
+                case 6://Calcula el max y min de los salarios
                     empresa1.calculaSalarioMaximoMinimo();
                     break;
 
@@ -152,6 +159,9 @@ public class Main {
                 case 7:
                     repetir = true;
                     break;
+
+                case 8: // Añadir empleados al turno
+                    empresa1.anadirEmpleadosAlTurno();
 
 
             }
