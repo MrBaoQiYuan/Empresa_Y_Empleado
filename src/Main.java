@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
@@ -10,16 +12,7 @@ public class Main {
         boolean repetir = false;
         while (!repetir) {
 
-            System.out.println("Seleccione una opcion del menu de Empleados: ");
-            System.out.println("Opcion 1: Agregar");
-            System.out.println("Opcion 2: Eliminar");
-            System.out.println("Opcion 3: Modificar");
-            System.out.println("Opcion 4: Consultar");
-            System.out.println("Opcion 5: Calcula el promedio de los salarios");
-            System.out.println("Opcion 6: Salario maximo y salario minimo");
-            System.out.println("Opcion 7: Salir");
-            System.out.println("Opcion 8: Añadir o eliminar empleados al turno"); //añadir / quitar empleados del turno.
-            System.out.println("Opcion 9: Consultar datos internos.");
+            opcionesDeMenu();
 
             System.out.println("Elija una opcion");
             int opcion;
@@ -37,7 +30,7 @@ public class Main {
                             System.out.println("introduzca el nombre del empleado nuevo");
                             String nombre = input.next();
 
-                            while (contieneNumero(nombre)){
+                            while (contieneNumero(nombre)) {
                                 System.out.println("introduzca un nombre valido.");
                                 nombre = input.next();
                             }
@@ -48,7 +41,7 @@ public class Main {
 
                             System.out.println("introduzca el puesto del empleado nuevo");
                             String puesto = input.next();
-                            while(contieneNumero(puesto)){
+                            while (contieneNumero(puesto)) {
                                 System.out.println("introduzca un puesto valido");
                                 puesto = input.next();
                             }
@@ -73,7 +66,7 @@ public class Main {
                             System.out.println("¿Que salario tendrán los " + nEmpleadosMasivos + " empleados nuevos?");
                             double salarioMasivo = input.nextDouble();
                             System.out.println("A partir de que numero de matricula se regitrarán los empleados nuevos?");
-                            int matriculaAuto = input.nextInt() -1;
+                            int matriculaAuto = input.nextInt() - 1;
 
                             for (int i = 0; i < nEmpleadosMasivos; i++) {
                                 String nombre2 = "";
@@ -102,7 +95,7 @@ public class Main {
                                 } else {
                                     System.out.println("No hay empleados que eliminar");
                                 }
-                            }catch(ConcurrentModificationException ex) {
+                            } catch (ConcurrentModificationException ex) {
                                 System.out.println("proceso de eliminacion finalizado");
                             }
 
@@ -117,9 +110,10 @@ public class Main {
                                 empresa1.eliminarTodosEmpleados();
                                 System.out.println("Se han eliminado todos los empleados de la empresa");
                                 break;
-                            }catch (ConcurrentModificationException exception){
+                            } catch (ConcurrentModificationException exception) {
                                 System.out.println("excepcion, todos los empleados se han borrado satisfactoriamente");
-                            };
+                            }
+                            ;
                     }
                     break;
 
@@ -169,6 +163,9 @@ public class Main {
                     empresa1.consultarDatosInternos();
                     break;
 
+                case 10:
+                    empresa1.crearOficinas();
+
 
             }
         }
@@ -176,12 +173,24 @@ public class Main {
 
     }
 
-    public static boolean contieneNumero(String nombre){
+    public static boolean contieneNumero(String nombre) {
         return nombre.matches(".*\\d+.*");
     }
 
+    static void opcionesDeMenu() {
+        System.out.println("Seleccione una opcion del menu de Empleados: ");
+        System.out.println("Opcion 1: Agregar");
+        System.out.println("Opcion 2: Eliminar");
+        System.out.println("Opcion 3: Modificar");
+        System.out.println("Opcion 4: Consultar");
+        System.out.println("Opcion 5: Calcula el promedio de los salarios");
+        System.out.println("Opcion 6: Salario maximo y salario minimo");
+        System.out.println("Opcion 7: Salir");
+        System.out.println("Opcion 8: Añadir o eliminar empleados al turno"); //añadir / quitar empleados del turno.
+        System.out.println("Opcion 9: Consultar datos internos.");
+        System.out.println("Opcion 10: Crear oficinas.");
 
+    }
 }
 
 
-// ¿?¿?  Opcion -> 4 - 15 - 1 - salario medio de la empresa...

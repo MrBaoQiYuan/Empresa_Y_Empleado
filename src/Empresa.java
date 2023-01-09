@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -257,6 +259,39 @@ public class Empresa {
                 consultarDatosInternos();
                 break;
         }
+    }
+
+    public void crearOficinas() {
+        System.out.println("¿Que tipo de oficina quieres crear?" +
+                "Opcion 1.- Oficina de contadores" +
+                "Opcion 2.- Oficina administrativa");
+
+        int oficinas = input.nextInt();
+
+        switch (oficinas){
+            case 1:
+                System.out.println("Cual es el numero de cabina?");
+                    int cabina = input.nextInt();
+                System.out.println("Cuantas tablas tiene la oficina?");
+                    int tablas = input.nextInt();
+
+                Oficina oficinaContadores = new OficinaContadores(cabina, tablas);
+                break;
+
+            case 2:
+
+/*
+
+                int cabina = input.nextInt();
+                System.out.println();
+
+                LocalDateTime dateTime;
+*/
+
+        }
+
+
+
     }
 }
 
