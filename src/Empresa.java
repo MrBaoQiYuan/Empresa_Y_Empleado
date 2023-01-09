@@ -177,27 +177,46 @@ public class Empresa {
     }
 
     public void consultarEmpleadosDespedidos() {
-        for (Empleado e : listaEmpleadosDespedidos) {
-            System.out.println(e);
+        for (Empleado f : listaEmpleadosDespedidos) {
+            System.out.println(f);
         }
     }
 
-    public void anadirEmpleadosAlTurno() {
-        System.out.println("Inserte la matricula del empleado que entra");
-        int matriculaEmpleado = input.nextInt();
-        for (Empleado e : listaEmpleadosEnTurno) {
-            if (e.getMatricula() == matriculaEmpleado) {
-                listaEmpleadosEnTurno.add(e);
-            }
+    public void anadirOEliminarEmpleadosAlTurno() {
+        System.out.println("¿Que deseas hacer?" +
+                "\nOpcion 1.- Añadir un empleado al turno" +
+                "\nOpcion 2.- Eliminar un empleado del turno");
+        int opcion = input.nextInt();
+        switch (opcion) {
+            case 1:
+                System.out.println("Inserte la matricula del empleado que entra");
+                int matriculaEmpleado = input.nextInt();
+                for (Empleado e : listaEmpleados) {
+                    if (e.getMatricula() == matriculaEmpleado) {
+                        listaEmpleadosEnTurno.add(e);
+                    }
+                }
+                break;
+            case 2:
+                System.out.println("Introduzca la matricula del empleado a eliminar del turno");
+                int matriculaEmpleado2 = input.nextInt();
+                Iterator <Empleado> it = listaEmpleadosEnTurno.iterator();
+                while(it.hasNext()) {
+                    Empleado e = it.next();
+                    if(e.getMatricula() == matriculaEmpleado2){
+                        it.remove();
+                    }
+                }
+                break;
+            default:
+                anadirOEliminarEmpleadosAlTurno();
+
         }
     }
+
 
     public boolean existenEmpleadosEnTurno(){
-            if(!listaEmpleadosEnTurno.isEmpty()){
-                return true;
-            }else{
-                return false;
-        }
+        return !listaEmpleadosEnTurno.isEmpty();
     }
 
     public int numeroEmpleadosEnTurno(){
@@ -205,6 +224,7 @@ public class Empresa {
             int numeroEmpleadosEnTurno = listaEmpleadosEnTurno.size();
             return numeroEmpleadosEnTurno;
         }else{
+            System.out.println("0");
             return 0;
         }
     }
@@ -214,12 +234,33 @@ public class Empresa {
     }
 
     public double porcentajeEmpleadosEnTurno(){
-        return (double)numeroEmpleadosGenerales()*numeroEmpleadosEnTurno()/100;
+        return (double) numeroEmpleadosEnTurno()*100/numeroEmpleadosGenerales();
     }
 
+    public void consultarDatosInternos() { //consultar datos internos
+        System.out.println("Escoja la opcion deseada: " +
+                "\nOpcion 1: Mostrar porcentaje de numeros empleados en turno." +
+                "\nOpcion 2: Mostrar total de empleados en turno." +
+                "\nOpcion 3: Mostrar empleados generales de la empresa.");
+        int opcion = input.nextInt();
+        switch (opcion) {
+            case 1:
+                System.out.println("el porcentaje de empleados en turno es de: "+ porcentajeEmpleadosEnTurno() + "%");
+                break;
+            case 2:
+                System.out.println("Existen "+numeroEmpleadosEnTurno() + " empleados en el turno");
+                break;
+            case 3:
+                System.out.println("Existen " + listaEmpleados.size()+ " empleados generales");
+                break;
+            default:
+                consultarDatosInternos();
+                break;
+        }
+    }
 }
 
-//solucionar metodo porcentajeEmpleadosEnTurno()
-//nueva opcion menu general: Datos internos. -> Mostrar % de numero empleados en turno(15%), total de empleados en turno,(20 empleados) o generales (150 empleados).
+//1 - solucionar metodo porcentajeEmpleadosEnTurno()
+//2 - nueva opcion menu general: Datos internos. -> Mostrar % de numero empleados en turno(15%), total de empleados en turno,(20 empleados) o generales (150 empleados).
 //solucionar quitar empleados.
 

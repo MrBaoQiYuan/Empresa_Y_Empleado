@@ -18,7 +18,8 @@ public class Main {
             System.out.println("Opcion 5: Calcula el promedio de los salarios");
             System.out.println("Opcion 6: Salario maximo y salario minimo");
             System.out.println("Opcion 7: Salir");
-            System.out.println("Opcion 8: Añadir empleados al turno"); //añadir / quitar empleados del turno.
+            System.out.println("Opcion 8: Añadir o eliminar empleados al turno"); //añadir / quitar empleados del turno.
+            System.out.println("Opcion 9: Consultar datos internos.");
 
             System.out.println("Elija una opcion");
             int opcion;
@@ -133,8 +134,8 @@ public class Main {
 
                 case 4://consultar datos de empleado.
                     System.out.println("Seleccione consultar los empleados activos o despedidos." +
-                            "Opcion 15.- Empleados actuales activos." +
-                            "Opcion 16.- Empleados despedidos");
+                            "\nOpcion 15.- Empleados actuales activos." +
+                            "\nOpcion 16.- Empleados despedidos");
                     int opcion3 = input.nextInt();
                     switch (opcion3) {
                         case 15:
@@ -160,8 +161,13 @@ public class Main {
                     repetir = true;
                     break;
 
-                case 8: // Añadir empleados al turno
-                    empresa1.anadirEmpleadosAlTurno();
+                case 8: // Añadir o eliminar empleados al turno
+                    empresa1.anadirOEliminarEmpleadosAlTurno();
+                    break;
+
+                case 9: // consultar datos internos
+                    empresa1.consultarDatosInternos();
+                    break;
 
 
             }
@@ -178,3 +184,4 @@ public class Main {
 }
 
 
+// ¿?¿?  Opcion -> 4 - 15 - 1 - salario medio de la empresa...
