@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
 
@@ -7,174 +5,68 @@ public class Main {
     public static void main(String[] args) {
 
         Empresa empresa1 = new Empresa("Inditex");
+        Empleado empleado1 = new Empleado();
         Scanner input = new Scanner(System.in);
-
         boolean repetir = false;
         while (!repetir) {
 
             opcionesDeMenu();
-
-            System.out.println("Elija una opcion");
             int opcion;
             opcion = input.nextInt();
 
             switch (opcion) {
-                case 1: //AGREGAR UN EMPLEADO
-                    System.out.println("Vamos a agregar un Empleado. Elija una opcion: " +
-                            "\nOpcion 10.- Agregar un empleado. " +
-                            "\nOpcion 11.- Agregar varios empleados a la vez");
-
-                    int opcion2 = input.nextInt();
-                    switch (opcion2) {
-                        case 10: //Agregar un empleado
-                            System.out.println("introduzca el nombre del empleado nuevo");
-                            String nombre = input.next();
-
-                            while (contieneNumero(nombre)) {
-                                System.out.println("introduzca un nombre valido.");
-                                nombre = input.next();
-                            }
-                            char primerLetra = nombre.charAt(0);
-                            String primerLetraMayuscula = String.valueOf(Character.toUpperCase(primerLetra));
-                            String restoDelString = nombre.substring(1).toLowerCase();
-                            String nombreCorrecto = primerLetraMayuscula + restoDelString;
-
-                            System.out.println("introduzca el puesto del empleado nuevo");
-                            String puesto = input.next();
-                            while (contieneNumero(puesto)) {
-                                System.out.println("introduzca un puesto valido");
-                                puesto = input.next();
-                            }
-                            char primerLetra2 = puesto.charAt(0);
-                            String primerLetraMayuscula2 = String.valueOf(Character.toUpperCase(primerLetra2));
-                            String restoDelString2 = puesto.substring(1).toLowerCase();
-                            String puestoCorrecto = primerLetraMayuscula2 + restoDelString2;
-
-                            System.out.println("introduzca el salario del empleado nuevo");
-                            double salario = input.nextDouble();
-                            System.out.println("introduzca la matricula del empleado nuevo");
-                            int matricula = input.nextInt();
-
-                            empresa1.agregarEmpleado(new Empleado(nombreCorrecto, puestoCorrecto, salario, matricula));
-                            break;
-
-                        case 11: //Agregar varios empleados
-                            System.out.println("¿Cuantos empleados quieres agregar?");
-                            int nEmpleadosMasivos = input.nextInt();
-                            System.out.println("¿Que puesto necesitas que cubran los " + nEmpleadosMasivos + " empleados nuevos?");
-                            String puestoMasivo = input.next();
-                            System.out.println("¿Que salario tendrán los " + nEmpleadosMasivos + " empleados nuevos?");
-                            double salarioMasivo = input.nextDouble();
-                            System.out.println("A partir de que numero de matricula se regitrarán los empleados nuevos?");
-                            int matriculaAuto = input.nextInt() - 1;
-
-                            for (int i = 0; i < nEmpleadosMasivos; i++) {
-                                String nombre2 = "";
-                                matriculaAuto++;
-                                empresa1.agregarEmpleado(new Empleado(nombre2, puestoMasivo, salarioMasivo, matriculaAuto));
-                            }
-                            break;
+                case 1 -> { //AGREGAR UN EMPLEADO
+                    opcionesAgregarEmpleado();
+                    int opcionesAgregar = input.nextInt();
+                    switch (opcionesAgregar) {
+                        case 1 -> //Agregar un empleado
+                                empresa1.agregarEmpleado(new Empleado(empleado1.darNombreUnEmpleado(), empleado1.darPuestoUnEmpleado(), empleado1.darSalarioUnEmpleado(), empleado1.darMatriculaUnEmpleado()));
+                        case 2 -> //Agregar varios empleados
+                                empresa1.creandoEmpMasivos();
                     }
-                    break;
-
-                case 2: //Eliminar Empleados
-                    System.out.println("Elija una de las siguientes opciones:" +
-                            "\nOpcion 12: Eliminar según nombre y puesto del empleado." +
-                            "\nOpcion 13: Eliminar todos los empleados de un mismo puesto." +
-                            "\nOpcion 14: Eliminar todos los empleados de la empresa.");
-                    int opcionEliminar = input.nextInt();
-                    switch (opcionEliminar) {
-                        case 12: //Eliminar segun nombre y puesto del empleado.
-                            try {
-                                if (empresa1.listaEmpleados.size() > 0) {
-                                    System.out.println("Introduzca el nombre del empleado a eliminar");
-                                    String nombre2 = input.next();
-                                    System.out.println("Introduzca el puesto del empleado a eliminar");
-                                    String puesto2 = input.next();
-                                    empresa1.eliminarEmpleado(nombre2, puesto2);
-                                } else {
-                                    System.out.println("No hay empleados que eliminar");
-                                }
-                            } catch (ConcurrentModificationException ex) {
-                                System.out.println("proceso de eliminacion finalizado");
-                            }
-
-                            break;
-
-                        case 13: //Eliminar todos los empleados de un puesto
-                            empresa1.eliminarEmpleadosDeUnPuesto();
-                            break;
-
-                        case 14://Eliminar todos los empleados de la empresa
+                }
+                case 2 -> { //Eliminar Empleados
+                    opcionesMenuEliminarEmpleados();
+                    int opcionesEliminar = input.nextInt();
+                    switch (opcionesEliminar) {
+                        case 1 -> //Eliminar segun nombre y puesto del empleado.
+                                empresa1.eliminarSegunNombreYpuesto();
+                        case 2 -> //Eliminar todos los empleados de un puesto
+                                empresa1.eliminarEmpleadosDeUnPuesto();
+                        case 3 -> {//Eliminar todos los empleados de la empresa
                             try {
                                 empresa1.eliminarTodosEmpleados();
-                                System.out.println("Se han eliminado todos los empleados de la empresa");
-                                break;
                             } catch (ConcurrentModificationException exception) {
                                 System.out.println("excepcion, todos los empleados se han borrado satisfactoriamente");
                             }
-                            ;
+                        }
                     }
-                    break;
-
-                case 3: //Modificar datos de empleado
-                    System.out.println("usted ha seleccionado modificar." +
-                            "\nIngrese el numero de matricula del empleado que desea modificar.");
-                    int matricula2 = input.nextInt();
-                    input.nextLine();
-                    empresa1.modificarEmpleado(matricula2);
-                    break;
-
-
-                case 4://consultar datos de empleado.
-                    System.out.println("Seleccione consultar los empleados activos o despedidos." +
-                            "\nOpcion 15.- Empleados actuales activos." +
-                            "\nOpcion 16.- Empleados despedidos");
-                    int opcion3 = input.nextInt();
-                    switch (opcion3) {
-                        case 15:
-                            empresa1.consultarEmpleado();
-                            break;
-                        case 16:
-                            empresa1.consultarEmpleadosDespedidos();
-                            break;
+                }
+                case 3 -> //Modificar datos de empleado
+                        empresa1.modificarEmpleado();
+                case 4 -> {//consultar datos de empleado.
+                    System.out.println("Seleccione consultar los empleados activos o despedidos." + "\nOpcion 1.- Empleados actuales activos." + "\nOpcion 2.- Empleados despedidos");
+                    int opcionesConsulta = input.nextInt();
+                    switch (opcionesConsulta) {
+                        case 1 -> empresa1.consultarEmpleado();
+                        case 2 -> empresa1.consultarEmpleadosDespedidos();
                     }
-
-
-                case 5: //Calcular el promedio de los salarios
-                    empresa1.calcularPromedioSalarios();
-                    break;
-
-
-                case 6://Calcula el max y min de los salarios
-                    empresa1.calculaSalarioMaximoMinimo();
-                    break;
-
-
-                case 7:
-                    repetir = true;
-                    break;
-
-                case 8: // Añadir o eliminar empleados al turno
-                    empresa1.anadirOEliminarEmpleadosAlTurno();
-                    break;
-
-                case 9: // consultar datos internos
-                    empresa1.consultarDatosInternos();
-                    break;
-
-                case 10:
-                    empresa1.crearOficinas();
-
-
+                }
+                case 5 -> //Calcular el promedio de los salarios
+                        empresa1.calcularPromedioSalarios();
+                case 6 ->//Calcula el max y min de los salarios
+                        empresa1.calculaSalarioMaximoMinimo();
+                case 7 -> //Salir del programa
+                        repetir = true;
+                case 8 -> // Añadir o eliminar empleados al turno
+                        empresa1.anadirOEliminarEmpleadosAlTurno();
+                case 9 -> // consultar datos internos
+                        empresa1.consultarDatosInternos();
+                case 10 -> //Crear oficinas
+                        empresa1.crearOficinas();
             }
         }
         System.out.println("Has salido del programa. ¡Hasta otra!");
-
-    }
-
-    public static boolean contieneNumero(String nombre) {
-        return nombre.matches(".*\\d+.*");
     }
 
     static void opcionesDeMenu() {
@@ -189,8 +81,19 @@ public class Main {
         System.out.println("Opcion 8: Añadir o eliminar empleados al turno"); //añadir / quitar empleados del turno.
         System.out.println("Opcion 9: Consultar datos internos.");
         System.out.println("Opcion 10: Crear oficinas.");
+        System.out.println("Elija una opcion");
+    }
 
+    static void opcionesAgregarEmpleado() {
+        System.out.println("Vamos a agregar un Empleado. Elija una opcion: " +
+                "\nOpcion 1.- Agregar un empleado. " +
+                "\nOpcion 2.- Agregar varios empleados a la vez");
+    }
+
+    static void opcionesMenuEliminarEmpleados(){
+        System.out.println("Elija una de las siguientes opciones:" +
+                "\nOpcion 1: Eliminar según nombre y puesto del empleado." +
+                "\nOpcion 2: Eliminar todos los empleados de un mismo puesto." +
+                "\nOpcion 3: Eliminar todos los empleados de la empresa.");
     }
 }
-
-
