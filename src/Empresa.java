@@ -303,7 +303,6 @@ public class Empresa {
         System.out.println("¿Hacia que tipo de oficina te quieres dirigir?" +
                 "\nOpcion 41.- Oficina administrativa" +
                 "\nOpcion 42.- Oficina de contadores");
-
         int opcionOficina = input.nextInt();
         switch (opcionOficina) {
             case 41 -> {
@@ -311,27 +310,18 @@ public class Empresa {
                 int matricula2 = input.nextInt();
                 for (Empleado e : listaEmpleados) {
                     if (matricula2 == e.getMatricula()) {
-                        System.out.println(e.toString());
-                    }
-                }
-                System.out.println("Que oficina deseas elegir? " +
-                        "\n Opcion 45: Oficina administrativa" +
-                        "\n Opcion 46: Oficina de contadores");
-                int eleccionOficina = input.nextInt();
-                switch (eleccionOficina) {
-                    case 45 -> {
-                        for (OficinaAdministrativa e : listaOficinaAdministrativa) {
-                            e.toString();
-                        }
-                    }
-                    case 46 -> {
-                        for (OficinaContadores e : listaOficinaContadores) {
-                            e.toString();
-                        }
+                        OficinaAdministrativa.agregarEmpleado(e);
                     }
                 }
             }
             case 42 -> {
+                System.out.println("Que empleado quieres elegir?. Introduzca su matricula");
+                int matricula2 = input.nextInt();
+                for (Empleado e: listaEmpleados) {
+                    if (matricula2 == e.getMatricula()) {
+                        OficinaContadores.agregarEmpleado(e);
+                    }
+                }
             }
         }
     }
