@@ -35,4 +35,13 @@ public class Oficina {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Oficina{" +
+                "numeroCabina=" + numeroCabina +
+                ", empleado=" + empleado +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }

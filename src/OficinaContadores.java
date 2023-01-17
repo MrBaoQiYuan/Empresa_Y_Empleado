@@ -8,4 +8,14 @@ public class OficinaContadores extends Oficina {
         super(cabina);
         this.tablas = tablas;
     }
+
+    @Override
+    public String toString() {
+        return "OficinaContadores{" +
+                "tablas=" + tablas +
+                ", numeroCabina=" + numeroCabina +
+                ", empleado=" + empleado +
+                ", dateTime=" + dateTime +
+                '}';
+    }
 }

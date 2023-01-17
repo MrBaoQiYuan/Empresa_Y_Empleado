@@ -54,6 +54,10 @@ public class Empleado {
         double salario = input.nextDouble();
         return salario;
     }
+    public double getSalario2() {
+        return salario;
+    }
+
 
     @Override
     public String toString() {

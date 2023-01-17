@@ -1,3 +1,4 @@
+// croquis del programa y arreglar las opciones.
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ public class Empresa {
     ArrayList<Empleado> listaEmpleados;
     ArrayList<Empleado> listaEmpleadosDespedidos;
     ArrayList<Empleado> listaEmpleadosEnTurno;
+    ArrayList<OficinaAdministrativa> listaOficinaAdministrativa;
+    ArrayList<OficinaContadores> listaOficinaContadores;
 
 
     public Empresa(String nombre) {
@@ -18,6 +21,8 @@ public class Empresa {
         this.listaEmpleados = new ArrayList<>();
         this.listaEmpleadosDespedidos = new ArrayList<>();
         this.listaEmpleadosEnTurno = new ArrayList<>();
+        this.listaOficinaAdministrativa = new ArrayList<>();
+        this.listaOficinaContadores = new ArrayList<>();
     }
 
     public void agregarEmpleado(Empleado emp) { //Agregar un empleado.
@@ -42,7 +47,6 @@ public class Empresa {
             if (e.getNombre().equals(nombre2) && e.getPuesto().equals(puesto2)) {
                 listaEmpleadosDespedidos.add(e);
                 listaEmpleados.remove(e);
-
                 System.out.println("Se ha eliminado, gracias");
             }
         }
@@ -62,7 +66,6 @@ public class Empresa {
             System.out.println("proceso de eliminacion finalizado");
         }
     }
-
 
     public void eliminarEmpleadosDeUnPuesto() {
         System.out.println("Introduzca el puesto que va a eliminar de la empresa");
@@ -87,55 +90,53 @@ public class Empresa {
         System.out.println("Se han eliminado todos los empleados de la empresa");
     }
 
-
     public void modificarEmpleado() { //Modificar datos de empleado.
 
         System.out.println("usted ha seleccionado modificar." + "\nIngrese el numero de matricula del empleado que desea modificar.");
         int matricula2 = input.nextInt();
-        input.next();
 
         for (Empleado e : listaEmpleados) {
             if (matricula2 == e.getMatricula()) {
 
-                Empleado empleadoAModificar = e;
-
                 boolean salir = false;
                 while (!salir) {
                     System.out.println("Que datos desea modificar? ");
-                    System.out.println("opcion 1: nombre");
-                    System.out.println("opcion 2: puesto");
-                    System.out.println("opcion 3: salario");
-                    System.out.println("opcion 4: matricula");
-                    System.out.println("opcion 5: salir");
+                    System.out.println("opcion 25: nombre");
+                    System.out.println("opcion 26: puesto");
+                    System.out.println("opcion 27: salario");
+                    System.out.println("opcion 28: matricula");
+                    System.out.println("opcion 29: salir");
 
                     int opcion2 = input.nextInt();
                     switch (opcion2) {
-                        case 1 -> { //Modificar datos de empleado.(nombre)
-                            System.out.println("El nombre que va a cambiar es:" + empleadoAModificar.getNombre());
+                        case 25 -> { //Modificar datos de empleado.(nombre)
+                            System.out.println("El nombre que va a cambiar es:" + e.getNombre());
                             System.out.println("ingrese el nuevo nombre");
                             String nombre3 = input.next();
-                            empleadoAModificar.setNombre(nombre3);
+                            e.setNombre(nombre3);
                         }
-                        case 2 -> {//Modificar datos de empleado.(puesto)
+                        case 26 -> {//Modificar datos de empleado.(puesto)
                             System.out.println("El puesto actual es de" + e.getPuesto());
                             System.out.println("Ingrese el nuevo puesto de trabajo");
                             String puesto3 = input.next();
-                            empleadoAModificar.setPuesto(puesto3);
+                            e.setPuesto(puesto3);
                         }
-                        case 3 -> {//Modificar datos de empleado.(salario)
-                            System.out.println("El salario actual de " + empleadoAModificar.getNombre() + " es de " + empleadoAModificar.getSalario());
+                        case 27 -> {//Modificar datos de empleado.(salario)
                             System.out.println("¿Cual quiere que sea su nuevo salario? Introduzcalo.");
                             double salario3 = input.nextDouble();
-                            empleadoAModificar.setSalario(salario3);
+                            e.setSalario(salario3);
                         }
-                        case 4 -> {//Modificar datos de empleado.(numero matricula)
-                            System.out.println("Introduzca el nuevo numero de matricula de " + empleadoAModificar.getNombre());
+                        case 28 -> {//Modificar datos de empleado.(numero matricula)
+                            System.out.println("Introduzca el nuevo numero de matricula de " + e.getNombre());
                             int matricula3 = input.nextInt();
-                            empleadoAModificar.setMatricula(matricula3);
+                            e.setMatricula(matricula3);
                         }
-                        case 5 ->//Modificar datos de empleado.
+                        case 29 ->//Modificar datos de empleado.
                                 salir = true;
-                        default -> System.out.println("Introduzca una opcion valida.");
+                        default -> {
+                            System.out.println("Introduzca una opcion valida.");
+                            modificarEmpleado();
+                        }
                     }
                 }
             }
@@ -143,18 +144,18 @@ public class Empresa {
     }
 
     public void consultarEmpleado() { //Consultar datos de empleado.
-        System.out.println("1.- Consultar lista completa.");
-        System.out.println("2.- Consultar un empleado.");
+        System.out.println("32.- Consultar lista completa.");
+        System.out.println("33.- Consultar un empleado.");
         System.out.println("Elija una opcion");
 
         int opcionesConsulta = input.nextInt();
         switch (opcionesConsulta) {
-            case 1 -> { //consultar datos de empleado. (lista completa)
+            case 32 -> { //consultar datos de empleado. (lista completa)
                 for (Empleado e : listaEmpleados) {
                     System.out.println(e);
                 }
             }
-            case 2 -> {//consultar datos de empleado.(un empleado)
+            case 33 -> {//consultar datos de empleado.(un empleado)
                 System.out.println("Ingrese la matricula del empleado");
                 int nMatricula = input.nextInt();
                 for (Empleado e : listaEmpleados) {
@@ -171,7 +172,7 @@ public class Empresa {
         double salarioMedio = 0;
         int nEmpleados = listaEmpleados.size();
         for (Empleado e : listaEmpleados) {
-            salarioTotal += e.getSalario();
+            salarioTotal += e.getSalario2();
         }
         salarioMedio = salarioTotal / nEmpleados;
         System.out.println("El salario medio de la empresa es de: " + salarioMedio);
@@ -184,21 +185,20 @@ public class Empresa {
         Empleado empleadoSalarioMinimo = null;
 
         for (Empleado e : listaEmpleados) { //calculo max
-            if (e.getSalario() > salarioMaximo) {
-                salarioMaximo = e.getSalario();
+            if (e.getSalario2() > salarioMaximo) {
+                salarioMaximo = e.getSalario2();
                 empleadoSalarioMaximo = e;
             }
         }
-        System.out.println("El empleado " + empleadoSalarioMaximo.getNombre() + " tiene el salario maximo de " + empleadoSalarioMaximo.getSalario());
+        System.out.println("El empleado " + empleadoSalarioMaximo.getNombre() + " tiene el salario maximo de " + empleadoSalarioMaximo.getSalario2());
 
         for (Empleado e : listaEmpleados) {//calculo min
-            if (e.getSalario() < salarioMinimo) {
-                salarioMinimo = e.getSalario();
+            if (e.getSalario2() < salarioMinimo) {
+                salarioMinimo = e.getSalario2();
                 empleadoSalarioMinimo = e;
             }
         }
-        System.out.println("El empleado " + empleadoSalarioMinimo.getNombre() + "tiene el salario minimo de " + empleadoSalarioMinimo.getSalario());
-
+        System.out.println("El empleado " + empleadoSalarioMinimo.getNombre() + " tiene el salario minimo de " + empleadoSalarioMinimo.getSalario2());
     }
 
     public void consultarEmpleadosDespedidos() {
@@ -206,15 +206,14 @@ public class Empresa {
             System.out.println(f);
         }
     }
-
     public void anadirOEliminarEmpleadosAlTurno() {
         System.out.println("¿Que deseas hacer?" +
-                "\nOpcion 1.- Añadir un empleado al turno" +
-                "\nOpcion 2.- Eliminar un empleado del turno");
+                "\nOpcion 34.- Añadir un empleado al turno" +
+                "\nOpcion 35.- Eliminar un empleado del turno");
         int opcion = input.nextInt();
         switch (opcion) {
-            case 1 -> {
-                System.out.println("Inserte la matricula del empleado que entra");
+            case 34 -> {
+                System.out.println("Inserte la matricula del empleado que entra al turno");
                 int matriculaEmpleado = input.nextInt();
                 for (Empleado e : listaEmpleados) {
                     if (e.getMatricula() == matriculaEmpleado) {
@@ -222,7 +221,7 @@ public class Empresa {
                     }
                 }
             }
-            case 2 -> {
+            case 35 -> {
                 System.out.println("Introduzca la matricula del empleado a eliminar del turno");
                 int matriculaEmpleado2 = input.nextInt();
                 Iterator<Empleado> it = listaEmpleadosEnTurno.iterator();
@@ -236,7 +235,6 @@ public class Empresa {
             default -> anadirOEliminarEmpleadosAlTurno();
         }
     }
-
 
     public boolean existenEmpleadosEnTurno(){
         return !listaEmpleadosEnTurno.isEmpty();
@@ -262,52 +260,99 @@ public class Empresa {
 
     public void consultarDatosInternos() { //consultar datos internos
         System.out.println("Escoja la opcion deseada: " +
-                "\nOpcion 1: Mostrar porcentaje de numeros empleados en turno." +
-                "\nOpcion 2: Mostrar total de empleados en turno." +
-                "\nOpcion 3: Mostrar empleados generales de la empresa.");
+                "\nOpcion 36: Mostrar porcentaje de numeros empleados en turno." +
+                "\nOpcion 37: Mostrar total de empleados en turno." +
+                "\nOpcion 38: Mostrar empleados generales de la empresa.");
         int opcion = input.nextInt();
         switch (opcion) {
-            case 1 -> System.out.println("el porcentaje de empleados en turno es de: " + porcentajeEmpleadosEnTurno() + "%");
-            case 2 -> System.out.println("Existen " + numeroEmpleadosEnTurno() + " empleados en el turno");
-            case 3 -> System.out.println("Existen " + listaEmpleados.size() + " empleados generales");
+            case 36 -> System.out.println("el porcentaje de empleados en turno es de: " + porcentajeEmpleadosEnTurno() + "%");
+            case 37 -> System.out.println("Existen " + numeroEmpleadosEnTurno() + " empleados en el turno");
+            case 38 -> System.out.println("Existen " + listaEmpleados.size() + " empleados generales");
             default -> consultarDatosInternos();
         }
     }
 
     public void crearOficinas() {
         System.out.println("¿Que tipo de oficina quieres crear?" +
-                "Opcion 1.- Oficina de contadores" +
-                "Opcion 2.- Oficina administrativa");
+                "\n Opcion 39.- Oficina de contadores" +
+                "\n Opcion 40.- Oficina administrativa");
 
         int oficinas = input.nextInt();
 
-        switch (oficinas){
-            case 1:
+        switch (oficinas) {
+            case 39 -> {
                 System.out.println("Cual es el numero de cabina?");
-                    int cabina = input.nextInt();
-                System.out.println("Cuantas tablas tiene la oficina?");
-                    int tablas = input.nextInt();
-
-                Oficina oficinaContadores = new OficinaContadores(cabina, tablas);
-                break;
-
-            case 2:
-
-/*
-
                 int cabina = input.nextInt();
-                System.out.println();
-
-                LocalDateTime dateTime;
-*/
-
+                System.out.println("Cuantas tablas tiene la oficina?");
+                int tablas = input.nextInt();
+                OficinaContadores oficinaContadores = new OficinaContadores(cabina, tablas);
+                listaOficinaContadores.add(oficinaContadores);
+            }
+            case 40 -> {
+                System.out.println("cual es el numero de cabina?");
+                int cabina2 = input.nextInt();
+                System.out.println("Cuantos documentos guarda?");
+                int documentos = input.nextInt();
+                OficinaAdministrativa oficinaDeAdministradores = new OficinaAdministrativa(cabina2, documentos);
+                listaOficinaAdministrativa.add(oficinaDeAdministradores);
+            }
         }
     }
 
-    public void crecer(){
+    public void asociarEmpleadoConOficina() {
+        System.out.println("¿Hacia que tipo de oficina te quieres dirigir?" +
+                "\nOpcion 41.- Oficina administrativa" +
+                "\nOpcion 42.- Oficina de contadores");
 
+        int opcionOficina = input.nextInt();
+        switch (opcionOficina) {
+            case 41 -> {
+                System.out.println("Que empleado quieres elegir?. Introduzca su matricula");
+                int matricula2 = input.nextInt();
+                for (Empleado e : listaEmpleados) {
+                    if (matricula2 == e.getMatricula()) {
+                        System.out.println(e.toString());
+                    }
+                }
+                System.out.println("Que oficina deseas elegir? " +
+                        "\n Opcion 45: Oficina administrativa" +
+                        "\n Opcion 46: Oficina de contadores");
+                int eleccionOficina = input.nextInt();
+                switch (eleccionOficina) {
+                    case 45 -> {
+                        for (OficinaAdministrativa e : listaOficinaAdministrativa) {
+                            e.toString();
+                        }
+                    }
+                    case 46 -> {
+                        for (OficinaContadores e : listaOficinaContadores) {
+                            e.toString();
+                        }
+                    }
+                }
+            }
+            case 42 -> {
+            }
+        }
     }
 
+
+    public void mostrarOficinas() {
+        System.out.println("¿Que lista de oficinas deseas visualizar?" +
+                "\nOpcion 43.- Lista de oficinas administrativas" +
+                "\nOpcion 44.- Lista de oficinas de contadores");
+        int opcionOficinas = input.nextInt();
+        switch (opcionOficinas) {
+            case 43 -> {
+                for (Oficina e : listaOficinaAdministrativa) {
+                    System.out.println(e.toString());
+                }
+            }
+            case 44 -> {
+                for (Oficina e : listaOficinaContadores) {
+                    System.out.println(e.toString());
+                }
+            }
+        }
+    }
 }
-
-
