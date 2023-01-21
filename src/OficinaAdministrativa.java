@@ -4,16 +4,25 @@ public class OficinaAdministrativa extends Oficina{
 
     int documentos;
 
-    static ArrayList<Empleado> listaEmpleados;
 
     public OficinaAdministrativa(int numeroCabina, int documentos) {
-        super(numeroCabina);
+        super(numeroCabina,null);
         this.documentos = documentos;
-        this.listaEmpleados = new ArrayList<>();
     }
 
-    public static void agregarEmpleado(Empleado e) {
-        listaEmpleados.add(e);
+    @Override
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+
+    @Override
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    @Override
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
 
     @Override

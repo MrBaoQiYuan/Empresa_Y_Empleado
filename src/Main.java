@@ -1,11 +1,16 @@
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
+// no ingresar dos matriculas iguales
+// enlistar oficinas con empleados por un lado y sin por otro lado.
 
 public class Main {
     public static void main(String[] args) {
 
         Empresa empresa1 = new Empresa("Inditex");
         Empleado empleado1 = new Empleado();
+        OficinaContadores oficinaContadores1 = new OficinaContadores(10, 10);
+        OficinaAdministrativa oficinaAdministrativa1 = new OficinaAdministrativa(20, 20);
+
         Scanner input = new Scanner(System.in);
         boolean repetir = false;
         while (!repetir) {
@@ -54,8 +59,6 @@ public class Main {
         }
         System.out.println("Has salido del programa. ¡Hasta otra!");
     }
-
-
 
     private static void switchOpcionesAgregar(int opcionesAgregar, Empleado empleado1, Empresa empresa1) {
         switch (opcionesAgregar) {

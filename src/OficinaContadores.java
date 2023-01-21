@@ -1,21 +1,35 @@
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OficinaContadores extends Oficina {
 
     int tablas;
-    static ArrayList<Empleado> listaEmpleados;
+    ArrayList<Empleado> listaEmpleadosContadores;
 
     public OficinaContadores(int cabina, int tablas) {
-        super(cabina);
+        super(cabina, null);
         this.tablas = tablas;
-        this.listaEmpleados = new ArrayList<>();
-
+        listaEmpleadosContadores = new ArrayList<>();
     }
 
-    public static void agregarEmpleado(Empleado e) {
-        listaEmpleados.add(e);
+    public void agregarEmpleado(Empleado e) {
+        listaEmpleadosContadores.add(e);
     }
+
+    @Override
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+    @Override
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+
+    @Override
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
 
     @Override
     public String toString() {

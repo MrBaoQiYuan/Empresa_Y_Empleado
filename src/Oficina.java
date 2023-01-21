@@ -1,15 +1,26 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Oficina {
 
     int numeroCabina;
     Empleado empleado;
     LocalDateTime dateTime;
+    boolean ocupado;
 
-    public Oficina(int numeroCabina) {
+    public Oficina(int numeroCabina, Empleado empleado) {
         this.numeroCabina = numeroCabina;
-        this.empleado = null;
+        this.empleado = empleado;
         this.dateTime = LocalDateTime.now();
+        this.ocupado=false;
+    }
+
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+
+    public boolean isOcupado() {
+        return ocupado;
     }
 
     public int getNumeroCabina() {

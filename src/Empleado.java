@@ -6,6 +6,8 @@ public class Empleado {
     private String puesto;
     private double salario;
     private int matricula;
+    private boolean ocupado;
+
 
     public Empleado() {
     }
@@ -15,6 +17,7 @@ public class Empleado {
         this.puesto = puesto;
         this.salario = salario;
         this.matricula = matricula;
+        this.ocupado = false;
     }
 
     public Empleado(int matricula) {
@@ -23,6 +26,14 @@ public class Empleado {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+
+    public boolean isOcupado() {
+        return ocupado;
     }
 
     public String getPuesto() {
@@ -81,7 +92,6 @@ public class Empleado {
             nombre = input.next();
         }
         return String.valueOf(Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1).toLowerCase());
-
     }
     public String darPuestoUnEmpleado() {
         System.out.println("introduzca el puesto del empleado nuevo");
@@ -98,10 +108,12 @@ public class Empleado {
         return input.nextDouble();
     }
 
+
     public int darMatriculaUnEmpleado() {
         System.out.println("introduzca la matricula del empleado nuevo");
         return input.nextInt();
     }
+
     public static int cantEmplMasivos() {
         System.out.println("¿Cuantos empleados quieres agregar?");
         int nEmpleadosMasivos = input.nextInt();

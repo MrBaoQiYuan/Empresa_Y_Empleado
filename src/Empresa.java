@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Empresa {
     Scanner input = new Scanner(System.in).useDelimiter("\n");
     private String nombre;
-    ArrayList<Empleado> listaEmpleados;
+    static ArrayList<Empleado> listaEmpleados;
     ArrayList<Empleado> listaEmpleadosDespedidos;
     ArrayList<Empleado> listaEmpleadosEnTurno;
     ArrayList<OficinaAdministrativa> listaOficinaAdministrativa;
@@ -51,6 +51,7 @@ public class Empresa {
             }
         }
     }
+
     public void eliminarSegunNombreYpuesto() {
         try {
             if (listaEmpleados.size() > 0) {
@@ -206,6 +207,7 @@ public class Empresa {
             System.out.println(f);
         }
     }
+
     public void anadirOEliminarEmpleadosAlTurno() {
         System.out.println("¿Que deseas hacer?" +
                 "\nOpcion 34.- Añadir un empleado al turno" +
@@ -236,59 +238,68 @@ public class Empresa {
         }
     }
 
-    public boolean existenEmpleadosEnTurno(){
+    public boolean existenEmpleadosEnTurno() {
         return !listaEmpleadosEnTurno.isEmpty();
     }
 
-    public int numeroEmpleadosEnTurno(){
-        if(existenEmpleadosEnTurno()) {
+    public int numeroEmpleadosEnTurno() {
+        if (existenEmpleadosEnTurno()) {
             int numeroEmpleadosEnTurno = listaEmpleadosEnTurno.size();
             return numeroEmpleadosEnTurno;
-        }else{
+        } else {
             System.out.println("0");
             return 0;
         }
     }
 
-    public int numeroEmpleadosGenerales(){
+    public int numeroEmpleadosGenerales() {
         return listaEmpleados.size();
     }
 
-    public double porcentajeEmpleadosEnTurno(){
-        return (double) numeroEmpleadosEnTurno()*100/numeroEmpleadosGenerales();
+    public double porcentajeEmpleadosEnTurno() {
+        return (double) numeroEmpleadosEnTurno() * 100 / numeroEmpleadosGenerales();
     }
 
     public void consultarDatosInternos() { //consultar datos internos
         System.out.println("Escoja la opcion deseada: " +
                 "\nOpcion 36: Mostrar porcentaje de numeros empleados en turno." +
                 "\nOpcion 37: Mostrar total de empleados en turno." +
-                "\nOpcion 38: Mostrar empleados generales de la empresa.");
+                "\nOpcion 38: Mostrar empleados generales de la empresa." +
+                "\nOpcion 39: Mostrar empleados ocupados y desocupados");
+
         int opcion = input.nextInt();
         switch (opcion) {
             case 36 -> System.out.println("el porcentaje de empleados en turno es de: " + porcentajeEmpleadosEnTurno() + "%");
             case 37 -> System.out.println("Existen " + numeroEmpleadosEnTurno() + " empleados en el turno");
             case 38 -> System.out.println("Existen " + listaEmpleados.size() + " empleados generales");
+            case 39 -> {
+                System.out.println("Ocupados:");
+                for (Empleado e : listaEmpleados) {
+                    if (e.isOcupado()) {
+                        System.out.println(e.toString());
+                    }
+                }
+                System.out.println("No ocupados:");
+                for (Empleado e : listaEmpleados) {
+                    if (!e.isOcupado()) {
+                        System.out.println(e.toString());
+                    }
+                }
+            }
             default -> consultarDatosInternos();
         }
     }
 
     public void crearOficinas() {
         System.out.println("¿Que tipo de oficina quieres crear?" +
-                "\n Opcion 39.- Oficina de contadores" +
-                "\n Opcion 40.- Oficina administrativa");
+                "\n Opcion 39.- Oficina administrativa" +
+                "\n Opcion 40.- Oficina de contadores");
 
         int oficinas = input.nextInt();
 
         switch (oficinas) {
+
             case 39 -> {
-                System.out.println("Cual es el numero de cabina?");
-                int cabina = input.nextInt();
-                System.out.println("Cuantas tablas tiene la oficina?");
-                int tablas = input.nextInt();
-                OficinaContadores oficinaContadores = new OficinaContadores(cabina, tablas);
-                listaOficinaContadores.add(oficinaContadores);
-            }
-            case 40 -> {
                 System.out.println("cual es el numero de cabina?");
                 int cabina2 = input.nextInt();
                 System.out.println("Cuantos documentos guarda?");
@@ -296,6 +307,15 @@ public class Empresa {
                 OficinaAdministrativa oficinaDeAdministradores = new OficinaAdministrativa(cabina2, documentos);
                 listaOficinaAdministrativa.add(oficinaDeAdministradores);
             }
+            case 40 -> {
+                System.out.println("Cual es el numero de cabina?");
+                int cabina = input.nextInt();
+                System.out.println("Cuantas tablas tiene la oficina?");
+                int tablas = input.nextInt();
+                OficinaContadores oficinaContadores = new OficinaContadores(cabina, tablas);
+                listaOficinaContadores.add(oficinaContadores);
+            }
+
         }
     }
 
@@ -308,29 +328,50 @@ public class Empresa {
             case 41 -> {
                 System.out.println("Que empleado quieres elegir?. Introduzca su matricula");
                 int matricula2 = input.nextInt();
+                System.out.println("¿Que numero de cabina deseas asociar?");
+                int cabina2 = input.nextInt();
+
                 for (Empleado e : listaEmpleados) {
                     if (matricula2 == e.getMatricula()) {
-                        OficinaAdministrativa.agregarEmpleado(e);
+                        for (OficinaAdministrativa f : listaOficinaAdministrativa) {
+                            if (cabina2 == f.getNumeroCabina()) {
+                                f.setEmpleado(e);
+                                System.out.println("la oficina con cabina numero " + f.getNumeroCabina() + "esta asociada al empleado " + f.empleado.getNombre());
+                                f.setOcupado(true);
+                                e.setOcupado(true);
+                            }
+                        }
                     }
                 }
             }
             case 42 -> {
                 System.out.println("Que empleado quieres elegir?. Introduzca su matricula");
                 int matricula2 = input.nextInt();
-                for (Empleado e: listaEmpleados) {
+                System.out.println("¿Que numero de cabina deseas asociar?");
+                int cabina2 = input.nextInt();
+
+                for (Empleado e : listaEmpleados) {
                     if (matricula2 == e.getMatricula()) {
-                        OficinaContadores.agregarEmpleado(e);
+                        for (OficinaContadores f : listaOficinaContadores) {
+                            if (cabina2 == f.getNumeroCabina()) {
+                                f.setEmpleado(e);
+                                System.out.println("la oficina con cabina numero " + f.getNumeroCabina() + "esta asociada al empleado " + f.empleado.getNombre());
+                                f.setOcupado(true);
+                                e.setOcupado(true);
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-
     public void mostrarOficinas() {
         System.out.println("¿Que lista de oficinas deseas visualizar?" +
                 "\nOpcion 43.- Lista de oficinas administrativas" +
-                "\nOpcion 44.- Lista de oficinas de contadores");
+                "\nOpcion 44.- Lista de oficinas de contadores" +
+                "\nOpcion 45.- Lista de oficinas ocupadas y desocupadas");
+
         int opcionOficinas = input.nextInt();
         switch (opcionOficinas) {
             case 43 -> {
@@ -341,6 +382,33 @@ public class Empresa {
             case 44 -> {
                 for (Oficina e : listaOficinaContadores) {
                     System.out.println(e.toString());
+                }
+            }
+            case 45 -> {
+                System.out.println("Oficinas ocupada de contadores");
+                for (Oficina e : listaOficinaContadores) {
+                    if (e.isOcupado()) {
+                        System.out.println(e);
+                    }
+                }
+                System.out.println("Oficinas ocupada de administrativos");
+
+                for (Oficina e : listaOficinaAdministrativa) {
+                    if (e.isOcupado()) {
+                        System.out.println(e);
+                    }
+                }
+                System.out.println("Oficinas NO ocupadas de contadores");
+                for (Oficina e : listaOficinaContadores) {
+                    if (!e.isOcupado()) {
+                        System.out.println(e);
+                    }
+                }
+                System.out.println("Oficinas NO ocupadas de administrativos");
+                for (Oficina e : listaOficinaAdministrativa) {
+                    if (!e.isOcupado()) {
+                        System.out.println(e);
+                    }
                 }
             }
         }
