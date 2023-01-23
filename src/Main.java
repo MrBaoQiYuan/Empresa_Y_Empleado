@@ -1,31 +1,26 @@
 import java.util.ConcurrentModificationException;
 import java.util.Scanner;
-// no ingresar dos matriculas iguales
-// enlistar oficinas con empleados por un lado y sin por otro lado.
 
 public class Main {
     public static void main(String[] args) {
 
         Empresa empresa1 = new Empresa("Inditex");
         Empleado empleado1 = new Empleado();
-        OficinaContadores oficinaContadores1 = new OficinaContadores(10, 10);
-        OficinaAdministrativa oficinaAdministrativa1 = new OficinaAdministrativa(20, 20);
 
         Scanner input = new Scanner(System.in);
         boolean repetir = false;
         while (!repetir) {
-
             opcionesDeMenu();
             int opcion;
             opcion = input.nextInt();
-
             switch (opcion) {
-                case 1 -> { //AGREGAR UN EMPLEADO
+                case 1 -> { //Agregar uno o varios empleados.
                     opcionesAgregarEmpleado();
                     int opcionesAgregar = input.nextInt();
                     switchOpcionesAgregar(opcionesAgregar, empleado1, empresa1);
                 }
-                case 2 -> { //Eliminar Empleados
+                case 2 -> {
+                    //Eliminar Empleados
                     opcionesMenuEliminarEmpleados();
                     int opcionesEliminar = input.nextInt();
                     switchOpcionEliminar(opcionesEliminar, empresa1);
@@ -61,6 +56,7 @@ public class Main {
     }
 
     private static void switchOpcionesAgregar(int opcionesAgregar, Empleado empleado1, Empresa empresa1) {
+        //Opciones del menu de agregar empleados. Los empleados se agregan a listaEmpleados.
         switch (opcionesAgregar) {
             case 20 -> //Agregar un empleado
                     empresa1.agregarEmpleado(new Empleado(empleado1.darNombreUnEmpleado(), empleado1.darPuestoUnEmpleado(), empleado1.darSalarioUnEmpleado(), empleado1.darMatriculaUnEmpleado()));
@@ -70,12 +66,13 @@ public class Main {
     }
 
     private static void switchOpcionEliminar(int opcionesEliminar, Empresa empresa1) {
+        //Opciones del menu de eliminar empleados. Los empleados despedidos son guardados en listaEmpleadosDespedidos.
         switch (opcionesEliminar) {
             case 22 -> //Eliminar segun nombre y puesto del empleado.
                     empresa1.eliminarSegunNombreYpuesto();
-            case 23 -> //Eliminar todos los empleados de un puesto
+            case 23 -> //Eliminar todos los empleados de un puesto.
                     empresa1.eliminarEmpleadosDeUnPuesto();
-            case 24 -> {//Eliminar todos los empleados de la empresa
+            case 24 -> {//Eliminar todos los empleados de la empresa.
                 try {
                     empresa1.eliminarTodosEmpleados();
                 } catch (ConcurrentModificationException exception) {
@@ -86,9 +83,15 @@ public class Main {
     }
 
     private static void switchOpcionesConsulta(int opcionesConsulta, Empresa empresa1) {
+        //Consultar datos de una lista de empleados normal, despedidos, o un empleado.
         switch (opcionesConsulta) {
+
+            // Consulta un empleado o varios.
             case 30 -> empresa1.consultarEmpleado();
+
+            //consultar lista de empleados despedidos.
             case 31 -> empresa1.consultarEmpleadosDespedidos();
+
         }
     }
 

@@ -1,13 +1,16 @@
 import java.util.ArrayList;
 
 public class OficinaAdministrativa extends Oficina{
-
     int documentos;
-
 
     public OficinaAdministrativa(int numeroCabina, int documentos) {
         super(numeroCabina,null);
         this.documentos = documentos;
+    }
+
+    @Override
+    public void setNumeroCabina(int numeroCabina) {
+        this.numeroCabina = numeroCabina;
     }
 
     @Override

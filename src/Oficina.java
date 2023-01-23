@@ -1,6 +1,9 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * @author
+ */
 public class Oficina {
 
     int numeroCabina;
@@ -14,6 +17,8 @@ public class Oficina {
         this.dateTime = LocalDateTime.now();
         this.ocupado=false;
     }
+
+
 
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;

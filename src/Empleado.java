@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.Scanner;
 public class Empleado {
 
@@ -7,7 +8,6 @@ public class Empleado {
     private double salario;
     private int matricula;
     private boolean ocupado;
-
 
     public Empleado() {
     }
@@ -83,20 +83,24 @@ public class Empleado {
     public boolean contieneNumero(String nombre) {
         return nombre.matches(".*\\d+.*");
     }
-
+    //metodo para verificar si existen numeros.
     public String darNombreUnEmpleado() {
+        //Establecer el nombre al empleado que se agrega.
         System.out.println("introduzca el nombre del empleado nuevo");
         String nombre = input.next();
         while (contieneNumero(nombre)) {
+             //Si el nombre contiene numeros, no es valido.
             System.out.println("introduzca un nombre valido.");
             nombre = input.next();
         }
         return String.valueOf(Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1).toLowerCase());
     }
     public String darPuestoUnEmpleado() {
+        //Establecer el puesto al empleado que se agrega.
         System.out.println("introduzca el puesto del empleado nuevo");
         String puesto = input.next();
         while (contieneNumero(puesto)) {
+            //Si el nombre contiene numeros, no es valido.
             System.out.println("introduzca un puesto valido");
             puesto = input.next();
         }
@@ -108,9 +112,18 @@ public class Empleado {
         return input.nextDouble();
     }
 
-
     public int darMatriculaUnEmpleado() {
         System.out.println("introduzca la matricula del empleado nuevo");
+        int matricula = input.nextInt();
+
+        Iterator<Empleado> it5 = Empresa.listaEmpleados.iterator();
+        while (it5.hasNext()) {
+            Empleado e = it5.next();
+            if (e.getMatricula() == matricula) {
+                System.out.println("La matricula ya esta repetida.");
+                darMatriculaUnEmpleado();
+            }
+        }
         return input.nextInt();
     }
 
@@ -119,18 +132,14 @@ public class Empleado {
         int nEmpleadosMasivos = input.nextInt();
         return nEmpleadosMasivos;
     }
-
     public static String puestoMasivo() {
         System.out.println("¿Que puesto necesitas que cubran los empleados nuevos?");
         return input.next();
     }
-
     public static double salarioMasivo() {
         System.out.println("¿Que salario tendrán los empleados nuevos?");
         return input.nextDouble();
     }
-
-
     public static int matriculaMasiva() {
         System.out.println("A partir de que numero de matricula se regitrarán los empleados nuevos?");
         int matriculaMasiva = input.nextInt();
