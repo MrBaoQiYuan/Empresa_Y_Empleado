@@ -59,7 +59,7 @@ public class Main {
         //Opciones del menu de agregar empleados. Los empleados se agregan a listaEmpleados.
         switch (opcionesAgregar) {
             case 20 -> //Agregar un empleado
-                    empresa1.agregarEmpleado(new Empleado(empleado1.darNombreUnEmpleado(), empleado1.darPuestoUnEmpleado(), empleado1.darSalarioUnEmpleado(), empleado1.darMatriculaUnEmpleado()));
+                    empresa1.agregarEmpleado();
             case 21 -> //Agregar varios empleados
                     empresa1.creandoEmpMasivos();
         }

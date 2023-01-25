@@ -84,48 +84,6 @@ public class Empleado {
         return nombre.matches(".*\\d+.*");
     }
     //metodo para verificar si existen numeros.
-    public String darNombreUnEmpleado() {
-        //Establecer el nombre al empleado que se agrega.
-        System.out.println("introduzca el nombre del empleado nuevo");
-        String nombre = input.next();
-        while (contieneNumero(nombre)) {
-             //Si el nombre contiene numeros, no es valido.
-            System.out.println("introduzca un nombre valido.");
-            nombre = input.next();
-        }
-        return String.valueOf(Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1).toLowerCase());
-    }
-    public String darPuestoUnEmpleado() {
-        //Establecer el puesto al empleado que se agrega.
-        System.out.println("introduzca el puesto del empleado nuevo");
-        String puesto = input.next();
-        while (contieneNumero(puesto)) {
-            //Si el nombre contiene numeros, no es valido.
-            System.out.println("introduzca un puesto valido");
-            puesto = input.next();
-        }
-        return String.valueOf(Character.toUpperCase(puesto.charAt(0)) + puesto.substring(1).toLowerCase());
-    }
-
-    public double darSalarioUnEmpleado() {
-        System.out.println("introduzca el salario del empleado nuevo");
-        return input.nextDouble();
-    }
-
-    public int darMatriculaUnEmpleado() {
-        System.out.println("introduzca la matricula del empleado nuevo");
-        int matricula = input.nextInt();
-
-        Iterator<Empleado> it5 = Empresa.listaEmpleados.iterator();
-        while (it5.hasNext()) {
-            Empleado e = it5.next();
-            if (e.getMatricula() == matricula) {
-                System.out.println("La matricula ya esta repetida.");
-                darMatriculaUnEmpleado();
-            }
-        }
-        return input.nextInt();
-    }
 
     public static int cantEmplMasivos() {
         System.out.println("¿Cuantos empleados quieres agregar?");

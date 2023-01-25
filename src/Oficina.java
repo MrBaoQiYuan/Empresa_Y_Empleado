@@ -1,9 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-/**
- * @author
- */
 public class Oficina {
 
     int numeroCabina;

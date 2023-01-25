@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class Empresa {
-    Scanner input = new Scanner(System.in).useDelimiter("\n");
     private String nombre;
     static ArrayList<Empleado> listaEmpleados;
     ArrayList<Empleado> listaEmpleadosDespedidos;
@@ -14,6 +13,7 @@ public class Empresa {
     static ArrayList<OficinaAdministrativa> listaOficinaAdministrativa;
     ArrayList<OficinaContadores> listaOficinaContadores;
 
+    Scanner input = new Scanner(System.in).useDelimiter("\n");
 
     public Empresa(String nombre) {
         this.nombre = nombre;
@@ -24,9 +24,31 @@ public class Empresa {
         this.listaOficinaContadores = new ArrayList<>();
     }
 
-    public void agregarEmpleado(Empleado emp) { //Agregar un empleado.
-        listaEmpleados.add(emp);
+    public void agregarEmpleado() { //Agregar un empleado.
+        System.out.println("introduzca el nombre del empleado nuevo");
+        String nombre = input.next();
+        System.out.println("introduzca el puesto del empleado nuevo");
+        String puesto = input.next();
+        System.out.println("introduzca el salario del empleado nuevo");
+        Double salario = input.nextDouble();
+        System.out.println("introduzca la matricula del empleado nuevo");
+        int matricula = input.nextInt();
+        Iterator<Empleado> it5 = listaEmpleados.iterator();
+        boolean matriculaCorrecta = true;
+        while (it5.hasNext()) {
+            Empleado e = it5.next();
+            if (e.getMatricula() == matricula) {
+                matriculaCorrecta = false;
+                System.out.println("La matricula ya esta repetida.");
+                break;
+            }
+        }
+        if (matriculaCorrecta) {
+            Empleado empleado = new Empleado(nombre, puesto, salario, matricula);
+            listaEmpleados.add(empleado);
+        }
     }
+
 
     public void creandoEmpMasivos() {
         // empleados masivos en lista de empleados.
@@ -153,33 +175,6 @@ public class Empresa {
         }
     }
 
-    public void consultarEmpleado() {
-        //Consultar datos de empleado.
-        System.out.println("32.- Consultar lista completa.");
-        System.out.println("33.- Consultar un empleado.");
-        System.out.println("Elija una opcion");
-
-        int opcionesConsulta = input.nextInt();
-        switch (opcionesConsulta) {
-            case 32 -> {
-                //consultar datos de empleado. (lista completa)
-                for (Empleado e : listaEmpleados) {
-                    System.out.println(e);
-                }
-            }
-            case 33 -> {
-                //consultar datos de empleado.(un empleado)
-                System.out.println("Ingrese la matricula del empleado");
-                int nMatricula = input.nextInt();
-                for (Empleado e : listaEmpleados) {
-                    if (nMatricula == e.getMatricula()) {
-                        System.out.println(e);
-                    }
-                }
-            }
-        }
-    }
-
     public void calcularPromedioSalarios() {
         //Calcular el promedio de los salarios
         double salarioTotal = 0;
@@ -222,6 +217,32 @@ public class Empresa {
         //consultar lista de empleados despedidos.
         for (Empleado f : listaEmpleadosDespedidos) {
             System.out.println(f);
+        }
+    }
+    public void consultarEmpleado() {
+        //Consultar datos de empleado.
+        System.out.println("32.- Consultar lista completa.");
+        System.out.println("33.- Consultar un empleado.");
+        System.out.println("Elija una opcion");
+
+        int opcionesConsulta = input.nextInt();
+        switch (opcionesConsulta) {
+            case 32 -> {
+                //consultar datos de empleado. (lista completa)
+                for (Empleado e : listaEmpleados) {
+                    System.out.println(e);
+                }
+            }
+            case 33 -> {
+                //consultar datos de empleado.(un empleado)
+                System.out.println("Ingrese la matricula del empleado");
+                int nMatricula = input.nextInt();
+                for (Empleado e : listaEmpleados) {
+                    if (nMatricula == e.getMatricula()) {
+                        System.out.println(e);
+                    }
+                }
+            }
         }
     }
 
