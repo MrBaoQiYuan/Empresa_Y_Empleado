@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Empresa {
     private String nombre;
@@ -26,7 +28,18 @@ public class Empresa {
 
     public void agregarEmpleado() { //Agregar un empleado.
         System.out.println("introduzca el nombre del empleado nuevo");
-        String nombre = input.next();
+        Pattern p = Pattern.compile("^[a-zA-Z]+$");
+        Matcher m;
+        String nombre2 = "";
+
+        do {
+            System.out.print("Ingrese un nombre con sólo letras de a a z: ");
+            nombre2 = input.next();
+            m = p.matcher(nombre2);
+        } while (!m.matches());
+
+        System.out.println("Nombre válida: " + nombre2);
+
         System.out.println("introduzca el puesto del empleado nuevo");
         String puesto = input.next();
         System.out.println("introduzca el salario del empleado nuevo");
@@ -48,7 +61,6 @@ public class Empresa {
             listaEmpleados.add(empleado);
         }
     }
-
 
     public void creandoEmpMasivos() {
         // empleados masivos en lista de empleados.
@@ -117,7 +129,7 @@ public class Empresa {
     }
 
     public void modificarEmpleado() {
-        /**     Modificar datos de empleado segun:
+         /**     Modificar datos de empleado segun:
          * 1.- Nombre
          * 2.- Puesto
          * 3.- Salario
@@ -228,7 +240,7 @@ public class Empresa {
         int opcionesConsulta = input.nextInt();
         switch (opcionesConsulta) {
             case 32 -> {
-                //consultar datos de empleado. (lista completa)
+                //consultar datos de todos los empleados. (lista completa)
                 for (Empleado e : listaEmpleados) {
                     System.out.println(e);
                 }
@@ -413,6 +425,7 @@ public class Empresa {
                     }
                 }
             }
+
             case 42 -> {
                 System.out.println("Que empleado quieres elegir?. Introduzca su matricula");
                 int matricula2 = input.nextInt();

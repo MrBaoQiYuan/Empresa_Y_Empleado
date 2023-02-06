@@ -16,7 +16,6 @@ public class Oficina {
     }
 
 
-
     public void setOcupado(boolean ocupado) {
         this.ocupado = ocupado;
     }
